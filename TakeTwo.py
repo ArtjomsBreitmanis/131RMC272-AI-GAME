@@ -49,8 +49,10 @@ class AIGAME:
 
         self.info_button = tk.Button(text="Game Instruction!!!!", height=5,width=20, command=self.FAQ_agree)
         self.info_button.pack()
+        
         self.number_label = tk.Label(self.root, text="Instructions: ")
         self.number_label.pack()
+        
         self.number_label = tk.Label(self.root, text="1. To start game choose the starting player. ")
         self.number_label.pack()
         self.number_label = tk.Label(self.root, text="2. Choose starting number, enter number by hand in window, or click 'Random number'")
@@ -59,9 +61,10 @@ class AIGAME:
         self.number_label.pack()
         self.number_label = tk.Label(self.root, text="4. If the generated number is not dividable with 2 or 5, you can proceed and and game instantly, or regenerate pressing 'Random Number'")
         self.number_label.pack()
+        """
         self.number_label = tk.Label(self.root, text="5. Due to limit if tree depth numbers over 6000 will cause the loop error (regenerate)")
-        self.number_label.pack()
-
+        self.number_label.pack()"""
+        
     def FAQ_agree(self):
         win=tk.Toplevel()
         win.title('Terms')
@@ -74,7 +77,7 @@ class AIGAME:
         
 
     def FAQ(self):
-         messagebox.showinfo(title="Game Instructions", message="1. To start game, firsh select who starts the game 'User' or 'Computer'"+"\n"+"2. Click 'Random Number' button to generate number in box"+"\n"+"3. If the User starts press'GO!' button, if Computer starts - 'Start'"+"\n"+"4. If the generated number is not dividable with 2 or 5, you can proceed and and game instantly, or regenerate pressing 'Random Number'"+"\n"+"5. Due to limit if tree depth numbers over 6000 will cause the loop error (regenerate)")   
+         messagebox.showinfo(title="Game Instructions", message="1. To start game, firsh select who starts the game 'User' or 'Computer'"+"\n"+"2. Click 'Random Number' button to generate number in box"+"\n"+"3. If the User starts press'GO!' button, if Computer starts - 'Start'"+"\n"+"4. If the generated number is not dividable with 2 or 5, you can proceed and and game instantly, or regenerate pressing 'Random Number'")   
 
     def randgenbutton(self, doComputerMove : bool = True):
         self.existing_numChar = random.randint(1000, 1995) *5
@@ -151,7 +154,10 @@ class AIGAME:
             if number % 2 == 0:
                 return 1 + eval_big(number // 2)
             else:
-                return 1 + eval_big(number // 5)
+                if number < 5:
+                    return 2
+                else:
+                    return 1 + eval_big(number // 5)
         
         def eval_small(number):
             
@@ -160,7 +166,12 @@ class AIGAME:
             if number %2 == 0:
                 return 1 + eval_small(number // 2)
             else:
-                return 1 + eval_small(number // 5)
+                if number < 5:
+                    return 2
+                else:
+                    return 1 + eval_small(number // 5)
+               
+                
         
         divisors = [2, 5]
         bestnum = None
